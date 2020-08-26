@@ -8,7 +8,7 @@ const CreateAccount = () => {
 
     //access to state
     const AuthContext = useContext(authContext);
-    const { userAuthenticated } = AuthContext;
+    const { registerUser } = AuthContext;
 
 
     //form and validation witb formik and yup
@@ -24,7 +24,7 @@ const CreateAccount = () => {
             password: Yup.string().required('The Password is required').min(6, 'The password must be at least 6 characters')
         }),
         onSubmit: values => {
-            console.log(values);
+            registerUser(values);
         }
     });
 
@@ -111,6 +111,7 @@ const CreateAccount = () => {
 
                         <input 
                             type="submit"
+                            style={{cursor: `pointer`}}
                             className="bg-red-500 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold"
                             value="Create Account"
                         />
