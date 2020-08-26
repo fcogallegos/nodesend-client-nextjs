@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const CreateAccount = () => {
 
@@ -11,8 +12,13 @@ const CreateAccount = () => {
             email: '',
             password: ''
         },
-        onSubmit: () => {
-            console.log('Sending Form...');
+        validationSchema: Yup.object({
+            name: Yup.string().required('The Name is required'),
+            email: Yup.string('The Email is not valid').required('The Email is required'),
+            password: Yup.string().required('The Password is required').min(6, 'The password must be at least 6 characters')
+        }),
+        onSubmit: values => {
+            console.log(values);
         }
     });
 
@@ -42,6 +48,13 @@ const CreateAccount = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
+
+                            { formik.touched.name && formik.errors.name ? (
+                                <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.name}</p>
+                                </div>    
+                            ) : null }
                         </div>
 
                         <div className="mb-4">
@@ -58,6 +71,13 @@ const CreateAccount = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
+
+                            { formik.touched.email && formik.errors.email ? (
+                                <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.email}</p>
+                                </div>    
+                            ) : null }
                         </div>
 
                         <div className="mb-4">
@@ -74,6 +94,13 @@ const CreateAccount = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
+
+                            { formik.touched.password && formik.errors.password ? (
+                                <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.password}</p>
+                                </div>    
+                            ) : null }
                         </div>
 
                         <input 
