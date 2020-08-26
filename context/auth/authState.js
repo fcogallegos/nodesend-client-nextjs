@@ -4,6 +4,8 @@ import authReducer from './authReducer';
 
 import { USER_AUTHENTICATED } from '../../types';
 
+import clientAxios from '../../config/axios';
+
 const AuthState = ({children}) => {
 
     // define a initial state
@@ -18,8 +20,14 @@ const AuthState = ({children}) => {
     const [ state, dispatch ] = useReducer(authReducer, initialState);
 
     // register new users
-    const registerUser = data => {
-        console.log(data);
+    const registerUser = async data => {
+        
+        try {
+            const response = await clientAxios.post('/api/users', data);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     //user authenticated
