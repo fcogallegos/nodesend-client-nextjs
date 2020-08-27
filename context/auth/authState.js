@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import authContext from './authContext';
 import authReducer from './authReducer';
 
-import { USER_AUTHENTICATED } from '../../types';
+import { REGISTER_SUCCESSFULLY } from '../../types';
 
 import clientAxios from '../../config/axios';
 
@@ -24,7 +24,11 @@ const AuthState = ({children}) => {
         
         try {
             const response = await clientAxios.post('/api/users', data);
-            console.log(response);
+            //console.log(response.data.msg);
+            dispatch({
+                type: REGISTER_SUCCESSFULLY,
+                payload: response.data.msg
+            })
         } catch (error) {
             console.log(error);
         }
