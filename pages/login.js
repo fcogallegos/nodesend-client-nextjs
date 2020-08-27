@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import authContext from '../context/auth/authContext';
 
 const Login = () => {
 
-  //form and validation witb formik and yup
-  const formik = useFormik({
-    initialValues: {
-        email: '',
-        password: ''
-    },
-    validationSchema: Yup.object({
-        email: Yup.string('The Email is not valid').required('The Email is required'),
-        password: Yup.string().required('The Password is required')
-    }),
-    onSubmit: values => {
-        console.log(values);
-    }
-  });
+    //define the context
+    const AuthContext = useContext(authContext);
+    const { login, message } = AuthContext;
+
+    //form and validation witb formik and yup
+    const formik = useFormik({
+      initialValues: {
+          email: '',
+          password: ''
+      },
+      validationSchema: Yup.object({
+          email: Yup.string('The Email is not valid').required('The Email is required'),
+          password: Yup.string().required('The Password is required')
+      }),
+      onSubmit: values => {
+        login(values);
+      }
+    });
 
   return ( 
     <Layout>
@@ -80,6 +84,7 @@ const Login = () => {
 
                         <input 
                             type="submit"
+                            style={{cursor: `pointer`}}
                             className="bg-red-500 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold"
                             value="Log in"
                         />

@@ -48,6 +48,11 @@ const AuthState = ({children}) => {
         }, 3000);
     }
 
+    //authenticate users
+    const login = async data => {
+        console.log(data);
+    }
+
     //user authenticated
     const userAuthenticated = name => {
         dispatch({
@@ -64,7 +69,8 @@ const AuthState = ({children}) => {
                 user: state.user,
                 message: state.message,
                 registerUser,
-                userAuthenticated
+                userAuthenticated,
+                login
             }}
         >
             {children}
