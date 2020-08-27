@@ -6,7 +6,8 @@ import {
     REGISTER_SUCCESSFULLY, 
     REGISTER_ERROR,
     CLEAN_ALERT,
-    LOGIN_ERROR
+    LOGIN_ERROR,
+    LOGIN_SUCCESSFULLY
 } from '../../types';
 
 import clientAxios from '../../config/axios';
@@ -15,7 +16,7 @@ const AuthState = ({children}) => {
 
     // define a initial state
     const initialState = {
-        token: '',
+        token: typeof window !== 'undefined' ? localStorage.getItem('rns-token'): '',
         authenticated: null,
         user: null,
         message: null
@@ -53,7 +54,11 @@ const AuthState = ({children}) => {
     const login = async data => {
         try {
             const response = await clientAxios.post('/api/auth', data);
-            console.log(response);
+            console.log(response.data.token);
+            dispatch({
+                type: LOGIN_SUCCESSFULLY,
+                payload: response.data.token
+            })
         } catch (error) {
             console.log(error.response.data.msg);
             dispatch({
