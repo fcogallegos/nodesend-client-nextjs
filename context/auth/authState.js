@@ -5,7 +5,8 @@ import authReducer from './authReducer';
 import { 
     REGISTER_SUCCESSFULLY, 
     REGISTER_ERROR,
-    CLEAN_ALERT
+    CLEAN_ALERT,
+    LOGIN_ERROR
 } from '../../types';
 
 import clientAxios from '../../config/axios';
@@ -50,7 +51,22 @@ const AuthState = ({children}) => {
 
     //authenticate users
     const login = async data => {
-        console.log(data);
+        try {
+            const response = await clientAxios.post('/api/auth', data);
+            console.log(response);
+        } catch (error) {
+            console.log(error.response.data.msg);
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: error.response.data.msg
+            })
+        }
+        //clean the alert after 3 seconds
+        setTimeout(() => {
+            dispatch({
+                type: CLEAN_ALERT
+            })
+        }, 3000);
     }
 
     //user authenticated

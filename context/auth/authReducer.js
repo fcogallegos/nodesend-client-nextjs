@@ -2,7 +2,8 @@ import {
     REGISTER_SUCCESSFULLY, 
     REGISTER_ERROR,
     CLEAN_ALERT,
-    USER_AUTHENTICATED 
+    USER_AUTHENTICATED,
+    LOGIN_ERROR 
 } from '../../types';
 
 export default (state, action) => {
@@ -10,6 +11,7 @@ export default (state, action) => {
 
         case REGISTER_SUCCESSFULLY:
         case REGISTER_ERROR:
+        case LOGIN_ERROR:    
             return {
                 ...state,
                 message: action.payload
