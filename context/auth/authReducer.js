@@ -2,9 +2,10 @@ import {
     REGISTER_SUCCESSFULLY, 
     REGISTER_ERROR,
     CLEAN_ALERT,
-    USER_AUTHENTICATED,
     LOGIN_ERROR,
-    LOGIN_SUCCESSFULLY 
+    LOGIN_SUCCESSFULLY,
+    AUTHENTICATED_USER ,
+    SIGN_OFF
 } from '../../types';
 
 export default (state, action) => {
@@ -29,7 +30,20 @@ export default (state, action) => {
                 ...state,
                 message: null
             }
-        
+        case AUTHENTICATED_USER:
+            return {
+                ...state,
+                user: action.payload
+            }
+        case SIGN_OFF:
+            localStorage.removeItem('rns-token');
+            return {
+                ...state,
+                user: null,
+                token: null,
+                authenticated: null,
+
+            }    
         default:
             return state;
     }

@@ -2,15 +2,19 @@ import React, { useReducer } from 'react';
 import authContext from './authContext';
 import authReducer from './authReducer';
 
+
 import { 
     REGISTER_SUCCESSFULLY, 
     REGISTER_ERROR,
     CLEAN_ALERT,
     LOGIN_ERROR,
-    LOGIN_SUCCESSFULLY
+    LOGIN_SUCCESSFULLY,
+    AUTHENTICATED_USER,
+    SIGN_OFF
 } from '../../types';
 
 import clientAxios from '../../config/axios';
+import tokenAuth from '../../config/tokenAuth';
 
 const AuthState = ({children}) => {
 
@@ -76,7 +80,32 @@ const AuthState = ({children}) => {
 
     // function that return the authenticated user in base to JWT
     const authenticatedUser = async () => {
-        console.log('checking...');
+        const token = localStorage.getItem('rns-token');
+        if(token) {
+            tokenAuth(token)
+        }
+
+        try {
+            const response = await clientAxios.get('/api/auth');
+            //console.log(response.data.user);
+            dispatch({
+                type: AUTHENTICATED_USER,
+                payload: response.data.user
+            })
+        } catch (error) {
+            console.log(error);
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: error.response.data.msg
+            })
+        }
+    }
+
+    //function for sign off
+    const signOff = () => {
+        dispatch({
+            type: SIGN_OFF
+        })
     }
 
     return (
@@ -88,7 +117,8 @@ const AuthState = ({children}) => {
                 message: state.message,
                 registerUser,
                 login,
-                authenticatedUser
+                authenticatedUser,
+                signOff
             }}
         >
             {children}
