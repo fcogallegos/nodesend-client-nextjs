@@ -74,12 +74,9 @@ const AuthState = ({children}) => {
         }, 3000);
     }
 
-    //user authenticated
-    const userAuthenticated = name => {
-        dispatch({
-            type: USER_AUTHENTICATED,
-            payload: name
-        })
+    // function that return the authenticated user in base to JWT
+    const authenticatedUser = async () => {
+        console.log('checking...');
     }
 
     return (
@@ -90,8 +87,8 @@ const AuthState = ({children}) => {
                 user: state.user,
                 message: state.message,
                 registerUser,
-                userAuthenticated,
-                login
+                login,
+                authenticatedUser
             }}
         >
             {children}
