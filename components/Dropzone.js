@@ -1,11 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clientAxios from '../config/axios';
 
 
 const Dropzone = () => {
 
-    const onDrop = useCallback( async (acceptedFiles) => {
+    const onDropRejected = () => {
+        console.log('Cannot upload');
+    }
+
+    const onDropAccepted = useCallback( async (acceptedFiles) => {
         console.log(acceptedFiles);
 
         //create a form data
@@ -18,7 +22,7 @@ const Dropzone = () => {
     }, []);
 
     // extract content of Dropzone
-    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({onDrop});
+    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({onDropAccepted, onDropRejected, maxSize: 400000});
 
     const files = acceptedFiles.map(file => (
         <li key={file.lastModified} className="bg-white flex-1 p-3 mb-4 shadow-lg rounded">
