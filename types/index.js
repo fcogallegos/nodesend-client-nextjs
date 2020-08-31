@@ -8,7 +8,7 @@ export const AUTHENTICATED_USER = 'AUTHENTICATED_USER';
 export const SIGN_OFF = 'SIGN_OFF';
 
 export const SHOW_ALERT = 'SHOW_ALERT';
-export const CLEAN_ALERT = 'CLEAN_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';
 
 export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
 export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';

@@ -1,7 +1,7 @@
 import { 
     REGISTER_SUCCESSFULLY, 
     REGISTER_ERROR,
-    CLEAN_ALERT,
+    HIDE_ALERT,
     LOGIN_ERROR,
     LOGIN_SUCCESSFULLY,
     AUTHENTICATED_USER ,
@@ -25,7 +25,7 @@ export default (state, action) => {
                 token: action.payload,
                 authenticated: true
             }
-        case CLEAN_ALERT:
+        case HIDE_ALERT:
             return {
                 ...state,
                 message: null

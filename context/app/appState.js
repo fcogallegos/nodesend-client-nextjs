@@ -4,7 +4,7 @@ import appReducer from './appReducer';
 
 import { 
     SHOW_ALERT,
-    CLEAN_ALERT,
+    HIDE_ALERT,
     UPLOAD_FILE_SUCCESS,
     UPLOAD_FILE_ERROR,
     CREATE_LINK_SUCCESS,
@@ -14,7 +14,7 @@ import {
  const AppState = ({children}) => {
 
     const initialState = {
-        message_file: '',
+        message_file: null,
     }
 
     //create dispatch and state
@@ -26,7 +26,13 @@ import {
         dispatch({
             type: SHOW_ALERT,
             payload: msg
-        })
+        });
+        
+        setTimeout(() => {
+            dispatch({
+                type: HIDE_ALERT
+            })
+        }, 3000);
     }
 
     return (

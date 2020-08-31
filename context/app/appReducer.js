@@ -1,6 +1,6 @@
 import { 
     SHOW_ALERT,
-    CLEAN_ALERT,
+    HIDE_ALERT,
     UPLOAD_FILE_SUCCESS,
     UPLOAD_FILE_ERROR,
     CREATE_LINK_SUCCESS,
@@ -14,6 +14,11 @@ export default (state, action) => {
                 ...state,
                 message_file: action.payload
             }
+        case HIDE_ALERT:
+            return {
+                ...state,
+                message_file: null
+            }    
 
         default:
             return state;
