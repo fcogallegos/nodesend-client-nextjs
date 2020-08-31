@@ -13,11 +13,27 @@ import {
 
  const AppState = ({children}) => {
 
+    const initialState = {
+        message_file: '',
+    }
+
+    //create dispatch and state
+    const [state, dispatch] = useReducer(appReducer, initialState);
+
+    //show an alert
+    const showAlert = msg => {
+        console.log(msg);
+        dispatch({
+            type: SHOW_ALERT,
+            payload: msg
+        })
+    }
 
     return (
         <appContext.Provider
             value={{
-
+                message_file: state.message_file,
+                showAlert
             }}
         >
             {children}

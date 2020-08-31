@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clientAxios from '../config/axios';
-
+import appContext from '../context/app/appContext';
 
 const Dropzone = () => {
 
+    const AppContext = useContext(appContext);
+    const { showAlert } = AppContext;
+
     const onDropRejected = () => {
-        console.log('Cannot upload');
+        showAlert('Cannot upload');
     }
 
     const onDropAccepted = useCallback( async (acceptedFiles) => {
