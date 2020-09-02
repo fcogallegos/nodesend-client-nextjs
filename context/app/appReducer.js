@@ -29,14 +29,20 @@ export default (state, action) => {
             return {
                 ...state,
                 name: action.payload.name,
-                name_original: action.payload.name_original,
+                original_name: action.payload.original_name,
                 loading: null
             }
         case UPLOAD_FILE_ERROR:
             return {
                 ...state,
-                message_file: action.payload
+                message_file: action.payload,
+                loading: null
             }    
+        case CREATE_LINK_SUCCESS:
+            return {
+                ...state,
+                url: action.payload
+        }    
         default:
             return state;
     }

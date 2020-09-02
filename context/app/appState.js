@@ -18,8 +18,12 @@ import {
     const initialState = {
         message_file: null,
         name: '',
-        name_original: '',
-        loading: null
+        original_name: '',
+        loading: null,
+        downloads: 1,
+        password: '',
+        author: null,
+        url: ''
     }
 
     //create dispatch and state
@@ -55,7 +59,7 @@ import {
                 type: UPLOAD_FILE_SUCCESS,
                 payload: {
                     name: response.data.file,
-                    name_original: fileName
+                    original_name: fileName
                 }     
             })
 
@@ -68,15 +72,44 @@ import {
         }
     } 
 
+    //create a link when the file uploaded
+    const createLink = async () => {
+        //console.log('creating link...');
+        const data = {
+            name: state.name,
+            original_name: state.original_name,
+            downloads: state.downloads,
+            password: state.password,
+            author: state.author
+        }
+        
+        try {
+            const response = await clientAxios.post('/api/links', data);
+            //console.log(response.data.msg);
+
+            dispatch({
+                type: CREATE_LINK_SUCCESS,
+                payload: response.data.msg
+            });
+        } catch (error) {
+            console.log(error);
+        }   
+    }
+
     return (
         <appContext.Provider
             value={{
                 message_file: state.message_file,
                 name: state.name,
-                name_original: state.name_original,
+                original_name: state.original_name,
                 loading: state.loading,
+                downloads: state.downloads,
+                password: state.password,
+                author: state.author,
+                url: state.url,
                 showAlert,
-                uploadFile
+                uploadFile,
+                createLink
             }}
         >
             {children}
