@@ -1,21 +1,39 @@
 import React, { useEffect, useContext } from 'react';
 import Link from 'next/link';
 import authContext from '../context/auth/authContext';
+import appContext from '../context/app/appContext';
+import { useRouter } from 'next/router';
 
 const Header = () => {
+
+    // using the hook useRouter
+    const router = useRouter();
 
     //extract the authenticated user of the storage
     const AuthContext = useContext(authContext);
     const { authenticatedUser, user, signOff } = AuthContext;
 
+    // Context of the application
+    const AppContext = useContext(appContext);
+    const { cleanState } = AppContext;
+
     useEffect(() => {
       authenticatedUser()
     }, []);
 
+    const redirect = () => {
+        router.push('/');
+        cleanState();
+    }
+
     return ( 
         <header className="py-8 flex flex-col md:flex-row items-center justify-between">
             <Link href="/">
-                <img className="w-64 mb-8 md:mb-0" style={{ cursor: `pointer` }} src="/logo.svg" />
+                <img 
+                    onClick={() => redirect()} 
+                    className="w-64 mb-8 md:mb-0" style={{ cursor: `pointer` }} 
+                    src="/logo.svg" 
+                />
             </Link>
             
 
