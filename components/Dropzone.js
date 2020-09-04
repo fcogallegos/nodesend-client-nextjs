@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import clientAxios from '../config/axios';
 import appContext from '../context/app/appContext';
 import authContext from '../context/auth/authContext';
+import Form from './Form';
 
 const Dropzone = () => {
 
@@ -50,7 +51,7 @@ const Dropzone = () => {
                         {files}
                     </ul>
 
-                    { authenticated ? "this is seen if it is authenticated" : "" }
+                    { authenticated ? <Form /> : "" }
 
                     { loading ? <p className="my-10 text-center text-gray-600">Uploading File...</p> : (
                         <button
