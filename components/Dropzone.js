@@ -2,11 +2,18 @@ import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clientAxios from '../config/axios';
 import appContext from '../context/app/appContext';
+import authContext from '../context/auth/authContext';
 
 const Dropzone = () => {
 
+    // App Context
     const AppContext = useContext(appContext);
     const { loading, showAlert, uploadFile, createLink } = AppContext;
+
+    // Auth Context
+    const AuthContext = useContext(authContext);
+    const { user, authenticated } = AuthContext;
+
 
     const onDropRejected = () => {
         showAlert('Cannot upload the limit is 400KB, get an account for upload to bigger files');
@@ -42,6 +49,8 @@ const Dropzone = () => {
                     <ul>
                         {files}
                     </ul>
+
+                    { authenticated ? "this is seen if it is authenticated" : "" }
 
                     { loading ? <p className="my-10 text-center text-gray-600">Uploading File...</p> : (
                         <button

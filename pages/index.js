@@ -17,7 +17,10 @@ const Index = () => {
   const { message_file, url } = AppContext;
 
   useEffect(() => {
-    authenticatedUser()
+    const token = localStorage.getItem('rns-token');
+    if(token) {
+      authenticatedUser()
+    }
   }, []);
 
   return ( 

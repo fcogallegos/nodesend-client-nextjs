@@ -33,7 +33,8 @@ export default (state, action) => {
         case AUTHENTICATED_USER:
             return {
                 ...state,
-                user: action.payload
+                user: action.payload,
+                authenticated: true
             }
         case SIGN_OFF:
             localStorage.removeItem('rns-token');
